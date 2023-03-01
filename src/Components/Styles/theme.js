@@ -5,11 +5,6 @@ const theme = extendTheme({
         initialColorMode: "Light",
         useSystemColorModa: false,
     },
-    colors: {
-        gray: {
-
-        },
-    },
     fonts: {
         body: "Roboto",
         heading: "Roboto",

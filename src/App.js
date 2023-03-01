@@ -1,20 +1,20 @@
 import React from "react";
 import Login from "./Components/Login/Login";
-import Cadastro from "./Components/Cadastro/Cadastro";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
-import Home from "./Components/Home";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./Components/Register/Register";
+import Dashboard from "./Components/App/Dashboard";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-
         <Routes>
-          <Login />
+          <Route path="/" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-
       </BrowserRouter>
     </div>
   );

@@ -1,47 +1,64 @@
-import React from 'react';
-import { ReactComponent as Windel } from '../Assets/logologin.svg'
-import Home from '../Home';
+import React, { useState } from 'react';
+import { ReactComponent as Windel } from '../Assets/logologin.svg';
 import { Link } from 'react-router-dom';
-import Header from '../Header';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Box, Text, Input, InputGroup, InputLeftElement, InputRightElement, Button } from '@chakra-ui/react';
+import { HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
+
   return (
-
-    <div>
-      <Header>
-        <Flex pos="fixed" top="1rem" right="1rem" align="center">
-          <Flex display={["none", "none", "flex", "flex"]}>
-            <Link href='/'>
-              <button
-                variant="ghost"
-                colorScheme="teat"
-                aria-label='Home'
-                my='5'
-                w='100%' >
-                Home
-              </button>
-            </Link>
-
-          </Flex>
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      h="100vh"
+    >
+      <Box maxW="500px" w="100%" bg="white" boxShadow="md" borderRadius="md" p={3}>
+        <Flex justifyContent="center">
+          <Windel />
         </Flex>
-      </Header>
+        <Box mb={4}>
+          <Text mb={2}>Informe seu e-mail</Text>
+          <Input type="email" placeholder="Seu e-mail" />
+        </Box>
+        <Box mb={4}>
+          <Text mb={2}>Informe sua senha</Text>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none" children={<HiOutlineLockClosed />} />
+            <Input type={showPassword ? 'text' : 'password'} placeholder="Sua senha" />
+            <InputRightElement>
+              <Button h="1.75rem" size="sm" onClick={handlePasswordVisibility}>
+                {showPassword ? <HiOutlineEye /> : <HiOutlineEyeOff />}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </Box>
+        <Link to="/dashboard">
+          <Button colorScheme="blue" size="lg" fontSize="md" fontWeight="bold" mb={4} width="100%">Acessar</Button>
+        </Link>
+        <Flex
+          gap="10px"
+          justifyContent="space-between"
+        >
+          <p>
+            <Link to="/forgot-password" mr={4}>Esqueceu sua senha?</Link>
+          </p>
+          <p>
+            <Link to="/register">Cadastre-se e teste grátis por 7 dias!</Link>
+          </p>
+        </Flex>
+      </Box>
+    </Flex>
 
-
-      <Windel />
-      <label type='text'>Informe seu e-mail</label>
-      <input type='email'></input>
-      <label type='text'>Informe sua senha</label>
-      <input type='password'></input>
-      <nav>
-        <Link to='/Home'>Acessar</Link>
-        <Link to='/Esqueceu'>Esqueceu sua senha?</Link>
-        <Link to='/Cadastro'>Cadastre-se e teste grátis por 7 dias!</Link>
-      </nav>
-    </div >
 
 
   )
 }
 
-export default Login
+
+
+export default Login;
