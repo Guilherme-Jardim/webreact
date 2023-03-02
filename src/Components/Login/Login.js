@@ -17,7 +17,14 @@ const Login = () => {
       alignItems="center"
       h="100vh"
     >
-      <Box maxW="500px" w="100%" bg="white" boxShadow="md" borderRadius="md" p={3}>
+      <Box
+        maxW="500px"
+        w="100%"
+        bg="white"
+        boxShadow="md"
+        borderRadius="md"
+        p={3}
+      >
         <Flex justifyContent="center">
           <Windel />
         </Flex>

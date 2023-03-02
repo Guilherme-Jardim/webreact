@@ -5,7 +5,9 @@ import FullscreenButton from "../FullScreenButton/FullScreenButton";
 
 const Header = () => {
     return (
-        <Flex align="center" justify="space-between" px="4" py="2" >
+        <Flex align="center" justify="space-between" px="4" py="2"
+            w="100%"
+        >
             <Box>
                 <WindelHeader />
             </Box>
