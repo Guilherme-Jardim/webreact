@@ -1,25 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Icon } from '@chakra-ui/icons';
-import { Button, Flex, Box } from "@chakra-ui/react";
-import { FiHome, FiUserPlus, FiDollarSign, FiShoppingCart } from 'react-icons/fi';
-import { FaAngleRight } from 'react-icons/fa';
+import { Button, Flex, Box, Grid } from "@chakra-ui/react";
+import { FiHome, FiUserPlus, FiBarChart, FiShoppingBag, FiEdit, FiDollarSign, FiShoppingCart } from 'react-icons/fi';
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
 import Header from './Header';
 
 const Dashboard = () => {
-    const [isTextVisible, setIsTextVisible] = useState(false);
-    const boxRef = useRef(null);
-
-    useEffect(() => {
-        if (isTextVisible && boxRef.current) {
-            boxRef.current.style.width = 'auto';
-            const boxWidth = boxRef.current.getBoundingClientRect().width;
-            boxRef.current.style.width = `${boxWidth}px`;
-        }
-    }, [isTextVisible]);
+    const [isTextVisible, setIsTextVisible] = useState(false)
+    const boxRef = useRef(null)
+    const [boxWidth, setBoxWidth] = useState(0)
+    const angleIcon = isTextVisible ? FaAngleLeft : FaAngleRight;
+    const justifyContent = isTextVisible ? "end" : "start";
 
     function handleTextVisibility() {
-        setIsTextVisible(!isTextVisible);
+        setIsTextVisible(!isTextVisible)
+        if (boxRef.current && !isTextVisible) {
+            setBoxWidth(boxRef.current.offsetWidth)
+        }
     }
 
     return (
@@ -27,48 +25,59 @@ const Dashboard = () => {
             <Flex w="100%">
                 <Header />
             </Flex>
-            <Box width="fit-content" flex="1" bg="gray.100">
-                <Flex direction="column" h="100%" justify="top" align="center">
-                    <Flex direction="column" mt="8">
-                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} onClick={handleTextVisibility}>
-                            <Icon justify="center" align="center" as={FaAngleRight} />
-                        </Button>
-                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}>
-                            <Icon as={FiHome} />
-                            {isTextVisible && (
-                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
-                                    Home
-                                </Box>
-                            )}
-                        </Button>
-                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}>
-                            <Icon as={FiUserPlus} />
-                            {isTextVisible && (
-                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
-                                    Add User
-                                </Box>
-                            )}
-                        </Button>
-                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}>
-                            <Icon as={FiDollarSign} />
-                            {isTextVisible && (
-                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
-                                    Payments
-                                </Box>
-                            )}
-                        </Button>
-                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}gu>
+            <Flex
+                width="fit-content"
+                direction="column"
+                h="100%"
+                bg="gray.100"
+            >
+                <Flex direction="column" bg="gray.100">
+                    <Button justifyContent={justifyContent} leftIcon={<Icon as={angleIcon} />} onClick={handleTextVisibility} variant="ghost" />
+                    <Button justifyContent="start" leftIcon={<FiHome />} variant="ghost">
+                        {isTextVisible && (
+                            <Box whiteSpace="nowrap" bg="gray.100">
+                                Home
+                            </Box>
+                        )}
+                    </Button>
+                    <Button justifyContent="start" leftIcon={<FiEdit />} variant="ghost">
+                        {isTextVisible && (
+                            <Box whiteSpace="nowrap" bg="gray.100">
+                                Cadastros
+                            </Box>
+                        )}
+                    </Button>
+                    <Button justifyContent="start" leftIcon={<FiDollarSign />} variant="ghost">
+                        {isTextVisible && (
+                            <Box whiteSpace="nowrap" bg="gray.100">
+                                Financeiro
+                            </Box>
+                        )}
+                    </Button>
+                    <Button justifyContent="start" leftIcon={<FiShoppingCart />} variant="ghost">
+                        {isTextVisible && (
+                            <Box whiteSpace="nowrap" bg="gray.100">
+                                Compras
+                            </Box>
+                        )}
+                    </Button>
+                    <Button justifyContent="start" leftIcon={<FiShoppingBag />} variant="ghost">
+                        {isTextVisible && (
+                            <Box whiteSpace="nowrap" bg="gray.100">
+                                Vendas
+                            </Box>
+                        )}
+                    </Button>
 
-                            <Icon as={FiShoppingCart} />
-                            {isTextVisible && (
-                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
-                                    Shop
-                                </Box>
-                            )}
-                        </Button>
-                    </Flex>
+                    <Button justifyContent="start" leftIcon={<FiBarChart />} variant="ghost">
+                        {isTextVisible && (
+                            <Box whiteSpace="nowrap" bg="gray.100">
+                                Relatórios
+                            </Box>
+                        )}
+                    </Button>
                 </Flex>
-            </Box>
+            </Flex>
         </Flex>
     );
 };
