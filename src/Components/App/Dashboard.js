@@ -1,65 +1,76 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import { Icon } from '@chakra-ui/icons';
-import FullscreenButton from '../FullScreenButton/FullScreenButton'
-import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import Header from './Header'
-import { Flex, Text, HStack, VStack, Spacer, Box, IconButton, Image, Menu, MenuButton, MenuList, MenuItem, Grid } from "@chakra-ui/react";
-import { FiHome, FiUserPlus, FiDollarSign, FiShoppingCart, FiPackage, FiFileText } from 'react-icons/fi';
-import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { Button, Flex, Box } from "@chakra-ui/react";
+import { FiHome, FiUserPlus, FiDollarSign, FiShoppingCart } from 'react-icons/fi';
+import { FaAngleRight } from 'react-icons/fa';
 
+import Header from './Header';
 
 const Dashboard = () => {
-
     const [isTextVisible, setIsTextVisible] = useState(false);
+    const boxRef = useRef(null);
+
+    useEffect(() => {
+        if (isTextVisible && boxRef.current) {
+            boxRef.current.style.width = 'auto';
+            const boxWidth = boxRef.current.getBoundingClientRect().width;
+            boxRef.current.style.width = `${boxWidth}px`;
+        }
+    }, [isTextVisible]);
 
     function handleTextVisibility() {
         setIsTextVisible(!isTextVisible);
     }
 
     return (
-        <Flex direction="column">
+        <Flex direction="column" h="100vh">
             <Flex w="100%">
                 <Header />
             </Flex>
-            <Box maxW="200px" h="100%" bg="gray.100">
-                <Flex direction="column" h="100%" justify="center" align="center">
-                    <Flex align="center" p="4">
-                        <Icon as={FiHome} mr="2" />
-                        {isTextVisible && <Text>Home</Text>}
-                        <Icon as={isTextVisible ? MdVisibilityOff : MdVisibility} ml="2" onClick={handleTextVisibility} />
-                    </Flex>
-                    <Flex align="center" p="4">
-                        <Icon as={FiUserPlus} mr="2" />
-                        {isTextVisible && <Text>Cadastros</Text>}
-                        <Icon as={isTextVisible ? MdVisibilityOff : MdVisibility} ml="2" onClick={handleTextVisibility} />
-                    </Flex>
-                    <Flex align="center" p="4">
-                        <Icon as={FiDollarSign} mr="2" />
-                        {isTextVisible && <Text>Financeiro</Text>}
-                        <Icon as={isTextVisible ? MdVisibilityOff : MdVisibility} ml="2" onClick={handleTextVisibility} />
-                    </Flex>
-                    <Flex align="center" p="4">
-                        <Icon as={FiShoppingCart} mr="2" />
-                        {isTextVisible && <Text>Compras</Text>}
-                        <Icon as={isTextVisible ? MdVisibilityOff : MdVisibility} ml="2" onClick={handleTextVisibility} />
-                    </Flex>
-                    <Flex align="center" p="4">
-                        <Icon as={FiPackage} mr="2" />
-                        {isTextVisible && <Text>Vendas</Text>}
-                        <Icon as={isTextVisible ? MdVisibilityOff : MdVisibility} ml="2" onClick={handleTextVisibility} />
-                    </Flex>
-                    <Flex align="center" p="4">
-                        <Icon as={FiFileText} mr="2" />
-                        {isTextVisible && <Text>Relatórios</Text>}
-                        <Icon as={isTextVisible ? MdVisibilityOff : MdVisibility} ml="2" onClick={handleTextVisibility} />
+            <Box width="fit-content" flex="1" bg="gray.100">
+                <Flex direction="column" h="100%" justify="top" align="center">
+                    <Flex direction="column" mt="8">
+                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} onClick={handleTextVisibility}>
+                            <Icon justify="center" align="center" as={FaAngleRight} />
+                        </Button>
+                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}>
+                            <Icon as={FiHome} />
+                            {isTextVisible && (
+                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
+                                    Home
+                                </Box>
+                            )}
+                        </Button>
+                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}>
+                            <Icon as={FiUserPlus} />
+                            {isTextVisible && (
+                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
+                                    Add User
+                                </Box>
+                            )}
+                        </Button>
+                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}>
+                            <Icon as={FiDollarSign} />
+                            {isTextVisible && (
+                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
+                                    Payments
+                                </Box>
+                            )}
+                        </Button>
+                        <Button variant="unstyled" _hover={{ bg: 'gray.300' }} alignItems="center" onClick={handleTextVisibility}gu>
+
+                            <Icon as={FiShoppingCart} />
+                            {isTextVisible && (
+                                <Box ref={boxRef} left="30px" top="50%" transform="translateY(-50%)" whiteSpace="nowrap">
+                                    Shop
+                                </Box>
+                            )}
+                        </Button>
                     </Flex>
                 </Flex>
             </Box>
         </Flex>
+    );
+};
 
-    )
-}
-
-export default Dashboard
-
-// Home, Cadastros, Financeiro, Compras, Vendas, Relatórios
+export default Dashboard;
